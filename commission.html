@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <title>Commission a Portrait — Annabel Fox</title>
+    <meta name="description" content="Commission a hand-painted portrait by UK artist Annabel Fox. Soft realism in oils from your photographs. Prices, process and timings explained.">
+    <link rel="canonical" href="https://annabelfox.github.io/commission.html">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+  
+    <!-- Icons (optional, safe defaults) -->
+    <link rel="icon" href="/favicon.ico">
+  
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Annabel Fox">
+    <meta property="og:title" content="Commission a Portrait — Annabel Fox">
+    <meta property="og:description" content="Commission a hand-painted portrait by UK artist Annabel Fox. Soft realism in oils from your photographs. Prices, process and timings explained.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://annabelfox.github.io/commission.html">
+    <meta property="og:image" content="https://annabelfox.github.io/images/3_paintings_banner.jpg">
+    <meta property="og:image:alt" content="Oil paintings by Annabel Fox — selection of portrait works">
+    <meta property="og:locale" content="en_GB">
+  
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Commission a Portrait — Annabel Fox">
+    <meta name="twitter:description" content="Commission a hand-painted portrait by UK artist Annabel Fox. Soft realism in oils from your photographs. Prices, process and timings explained.">
+    <meta name="twitter:image" content="https://annabelfox.github.io/images/3_paintings_banner.jpg">
+  
+    <link rel="stylesheet" href="style.css">
+    <script defer src="app.js"></script>
+  
+    <!-- Breadcrumbs (helps understanding site structure) -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://annabelfox.github.io/"},
+        {"@type":"ListItem","position":2,"name":"Commission a Portrait","item":"https://annabelfox.github.io/commission.html"}
+      ]
+    }
+    </script>
+  
+    <!-- Service schema (clear “what you offer”) -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Service",
+      "name":"Portrait commission in oils",
+      "serviceType":"Portrait painting",
+      "description":"Commission a hand-painted portrait by UK artist Annabel Fox.",
+      "url":"https://annabelfox.github.io/commission.html",
+      "areaServed":"GB",
+      "availableChannel":{"@type":"ServiceChannel","serviceUrl":"https://annabelfox.github.io/contact.html"},
+      "offers":{"@type":"AggregateOffer","priceCurrency":"GBP","lowPrice":"300","availability":"https://schema.org/InStock"},
+      "provider":{
+        "@type":"Person",
+        "name":"Annabel Fox",
+        "url":"https://annabelfox.github.io/",
+        "sameAs":[
+          "https://www.instagram.com/annabelfoxart",
+          "https://www.tiktok.com/@annabel.foxy"
+        ]
+      }
+    }
+    </script>
+  
+    <!-- Page-scoped styles for the process grid and CTA buttons (unchanged) -->
+    <style>
+      /* 2-column block: photo left, text right; stacks on small screens */
+      .process-grid{
+        display:grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 1.25rem 1.5rem;
+        align-items:start;
+      }
+      .process-grid figure{ margin:0; }
+      .process-grid img{
+        display:block; width:100%; height:auto; border-radius:6px;
+      }
+      @media (max-width: 840px){
+        .process-grid{ grid-template-columns: 1fr; }
+      }
+  
+      /* Price cards tidy spacing if you keep your existing markup */
+      .price-grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+        margin: .75rem 0 0;
+      }
+      .price-card{
+        background: var(--soft, #f7f7f7);
+        padding: 1rem;
+        border-radius: 6px;
+      }
+      .price-card h4{ margin: 0 0 .5rem; font-size: .9rem; }
+      .price-card ul{ margin: 0 0 .5rem; padding-left: 1.1rem; }
+      .price-note{ margin: .25rem 0 0; font-size: .85rem; }
+    </style>
+  </head>  
+<body>
+  <header id="mainheader" role="banner">
+    <div id="logo" aria-hidden="true">Annabel Fox</div>
+    <nav aria-label="Primary navigation">
+      <ul id="nav-ul">
+        <li><a href="index.html" class="navbutton">Home</a></li>
+        <li><a href="portfolio.html" class="navbutton">Portfolio</a></li>
+        <li><a href="about.html" class="navbutton">About</a></li>
+
+        <!-- Dropdown parent label is a button (not a link) -->
+        <li class="has-dd">
+          <button class="navbutton dd-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="comm-dd">
+            Commission and Contact <span class="dd-caret" aria-hidden="true">▾</span>
+          </button>
+          <ul id="comm-dd" class="dropdown" role="menu" aria-label="Commission and Contact submenu">
+            <li role="none"><a role="menuitem" href="commission.html" aria-current="page">Commissioning a Portrait</a></li>
+            <li role="none"><a role="menuitem" href="faqs.html">FAQs</a></li>
+            <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main role="main">
+    <article>
+      <br>
+      <h1>Commission a Portrait – What is Involved</h1>
+
+      <!-- PROCESS (photo left, text right) -->
+       <br>
+      <section id="process" aria-labelledby="process-heading">
+        <h2 id="process-heading">The Process, Pricing, & Delivery</h2>
+        <br>
+        <div class="process-grid">
+          <!-- LEFT: Studio baby photo -->
+          <figure>
+            <!-- TODO: swap the src for your actual studio baby image -->
+            <img src="images/baby_portrait_painting_in_studio_800.jpg" alt="Portrait study of a baby in the studio, work-in-progress on the easel">
+            <figcaption class="sr-only">Studio baby portrait reference and work-in-progress.</figcaption>
+          </figure>
+
+          <!-- RIGHT: your process text -->
+          <div>
+            <p>I work from photographs rather than from life - making commissioning a portrait easy for busy families or professionals. If you’ve looked through my portfolio and like my style, simply use the contact form to get in touch about your idea. From there, the process is straightforward:</p>
+            <h3>1) Share photos & ideas</h3>
+            <p>Send a few clear, well-lit favourites (no filters). Together, we’ll decide on the best reference, crop and background.</p>
+
+            <h3>2) Confirm quote & booking</h3>
+            <p>I’ll confirm price and timeline. A 10% deposit secures your commission and your place in my schedule.</p>
+
+            <h3>3) Painting phase</h3>
+            <p>I typically begin with a tonal underpainting, then build colour in layers. I can share a progress photo part-way through.</p>
+
+            <h3>4) Approval & delivery</h3>
+            <p>You’ll see photos of the finished piece for approval. The balance is due on approval, then your painting is shipped (UK-wide) or will be available for collection.</p>
+          </div>
+        </div>
+        <br>
+      </section>
+
+      <!-- PRICES -->
+      <section id="prices" aria-labelledby="prices-heading">
+        <h2 id="prices-heading">Prices (Guide)</h2>
+        <p>Pricing depends on <strong>size</strong> and <strong>complexity</strong> (e.g. extra subjects, detailed backgrounds, etc.) </p>
+
+        <div class="price-grid" role="table" aria-label="Price guide">
+          <div class="price-card" role="rowgroup">
+            <h4 role="rowheader">Oil on Canvas</h4>
+            <ul role="row">
+              <li><strong>A5 (5.8 x 8.3 inches)</strong> — <strong>from £300</strong></li>
+              <li><strong>A4 (8.3 x 11.7 inches)</strong> — <strong>from £500</strong></li>
+              <li><strong>A3 (11.7 x 16.5 inches)</strong> — <strong>from £750</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="price-terms">
+          <li><strong>Booking fee:</strong> 10% non-refundable deposit to secure your slot; remaining fee due on approval of the finished piece before shipping/collection.</li>
+          <li><strong>Shipping:</strong> UK only, tracked. Collection is available for those based nearby.</li>
+          <li><strong>Framing:</strong> Supplied unframed.</li>
+        </ul>
+      </section>
+
+      <!-- TIMING -->
+      <section id="timing" aria-labelledby="timing-heading">
+        <h2 id="timing-heading">Timing</h2>
+        <p>Typical turnaround is <strong>4–8 weeks</strong> depending on size, complexity and drying time for oils. If you have a date in mind (birthday, anniversary, Christmas), let me know as early as you can — I’ll confirm what’s realistic and whether a painting is possible.</p>
+      </section>
+      <br>
+
+      <!-- CTA BUTTONS -->
+      <section aria-labelledby="next-steps-heading">
+        <h3 id="next-steps-heading" class="sr-only">Next steps</h3>
+        <div class="cta-buttons" role="navigation" aria-label="Next steps">
+          <a class="btn" href="faqs.html">Read FAQs</a>
+          <a class="btn" href="portfolio.html">View Portfolio</a>
+          <a class="btn" href="contact.html">Contact / Start a Commission</a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top footer-grid">
+      <!-- Column 1 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Commissions</h4>
+        <ul class="footer-list">
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><a href="commission.html">Prices</a></li>
+          <li><a href="commission.html">Process</a></li>
+          <li><a href="commission.html">Delivery</a></li>
+        </ul>
+      </section>
+  
+      <!-- Column 2 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Annabel Fox</h4>
+        <ul class="footer-list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+        </ul>
+      </section>
+  
+      <!-- Column 3 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Contact</h4>
+        <p class="footer-text"><a class="footer-email" href="mailto:annabel.e.m.fox@icloud.com">annabel.e.m.fox@icloud.com</a></p>
+        <div class="footer-social" aria-label="Social links">
+          <a class="icon-link" href="https://www.instagram.com/annabelfoxart" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+          </a>
+          <a class="icon-link" href="https://www.tiktok.com/@annabel.foxy" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 3h3.1a5.6 5.6 0 0 0 4.3 4.2v3.2a8.9 8.9 0 0 1-4.3-1.5v6.7a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1V12a3.1 3.1 0 1 0 2.1 2.9V3z"/></svg>
+          </a>
+        </div>
+      </section>
+  
+      <!-- Column 4 -->
+      <section class="footer-col newsletter">
+        <h4 class="footer-title">Join my newsletter</h4>
+        <p class="footer-text">Join my newsletter to enjoy 10% off your first commission.</p>
+  
+        <!-- Connect this action to your email service later (Formspree, Netlify Forms, Mailchimp, etc.) -->
+        <form class="newsletter-form" action="https://formspree.io/f/xwprwvyj" method="POST">
+          <input type="hidden" name="_subject" value="New newsletter signup!">
+          
+          <label class="sr-only" for="nl-email">Email address</label>
+          <input id="nl-email" name="email" type="email" placeholder="Enter your email address" required>
+        
+          <!-- Honeypot to reduce spam -->
+          <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off">
+        
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; <span id="year">2025</span> Annabel Fox. All rights reserved.</p>
+    </div>
+  </footer>  
+</body>
+</html>
