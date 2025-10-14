@@ -1,0 +1,801 @@
+/* ============================================================
+   style.css — shared across pages (clean build)
+   - Universal page margins for text + images
+   - Home banner stays full-bleed
+   - 4-across gallery with more space & square corners
+   - Captions larger
+   - Nav, footer, logo sizes tied to one scale knob
+   ============================================================ */
+
+
+/* -----------------------------
+   1) BASELINE + BOX SIZING
+   ----------------------------- */
+
+   html { font-size: 100%; -webkit-text-size-adjust: 100%; box-sizing: border-box; }
+   *, *::before, *::after { box-sizing: inherit; }
+   
+   
+   /* -----------------------------
+      2) TOKENS (COLOURS & TYPE)
+      ----------------------------- */
+   
+   :root{
+     /* colours */
+     --accent: rgb(74,129,100);
+     --text: #222;
+     --soft: #f7f7f7;
+     --line: #ddd;
+     --link: #000;
+     --link-hover: var(--accent);
+   
+     /* page container */
+     --page: 75rem;   /* overall content width cap (~1200px) */
+     --pad:  1.5rem;  /* side padding inside the cap */
+   
+     /* ===== EDIT HERE: universal type scale knob =====
+        Increase to make ALL text larger, decrease to make smaller. */
+     --scale: 1.15;
+   
+     /* base paragraph size (everything derives from this) */
+     --p-base: clamp(0.95rem, 0.5vw + 0.7rem, 1.1rem);
+     --p-size: calc(var(--p-base) * var(--scale));
+     --p-lh: 1.5;
+   
+     /* headings (subtle scale) */
+     --h1: calc(var(--p-size) * 1.3);
+     --h2: calc(var(--p-size) * 1.15);
+     --h3: calc(var(--p-size) * 1.05);
+     --h4: calc(var(--p-size) * 1.0);
+   
+     /* nav/footer text derives from paragraph size so everything tracks */
+     --nav-size: calc(var(--p-size) * 0.9);
+   }
+   
+   
+   /* -----------------------------
+      3) BASE TYPOGRAPHY
+      ----------------------------- */
+   
+   body{
+     font-family:'Montserrat', Helvetica, Arial, sans-serif;
+     margin:0;
+     color:var(--text);
+     background:#fff;
+     line-height:var(--p-lh);
+   }
+   
+   p{
+     font-size:var(--p-size);
+     line-height:var(--p-lh);
+     margin:0 0 .8rem;
+   }
+   
+   h1,h2,h3,h4,h5,h6{
+     font-family:'Montserrat', Helvetica, Arial, sans-serif;
+     font-weight:600;
+     letter-spacing:.01em;
+     margin:0 0 .45rem;
+     line-height:1.25;
+     color:var(--text);
+   }
+   h1{ font-size:var(--h1); }
+   h2{ font-size:var(--h2); }
+   h3{ font-size:var(--h3); }
+   h4{ font-size:var(--h4); }
+   
+   ul, li { font-size: var(--p-size); line-height: var(--p-lh); }
+   
+   
+   /* -----------------------------
+      4) UNIVERSAL PAGE CONTAINERS
+      ----------------------------- */
+   
+   /* Commission, Portfolio, FAQs all use <article> inside <main> */
+   main > article{
+     max-width: var(--page);
+     margin-left: auto;
+     margin-right: auto;
+     padding-left: var(--pad);
+     padding-right: var(--pad);
+   }
+   
+   /* About page container */
+   .about-section{
+     max-width: var(--page);
+     margin-left: auto;
+     margin-right: auto;
+     padding-left: var(--pad);
+     padding-right: var(--pad);
+   }
+   
+   /* Contact page container */
+   section[aria-labelledby="contact-heading"]{
+     max-width: var(--page);
+     margin-left: auto;
+     margin-right: auto;
+     padding-left: var(--pad);
+     padding-right: var(--pad);
+   }
+   
+   /* Make home intro paragraphs narrower (banner stays full-bleed) */
+   #about-teaser p{
+     max-width: 70ch;
+     margin-left: auto;
+     margin-right: auto;
+   }
+   
+   
+   /* ----------------------------
+      5) HEADER + PRIMARY NAV BAR
+      ---------------------------- */
+   
+   #logo{
+     margin:0;
+     font-size: calc(var(--p-size) * 1.25);
+     color:#000;
+   }
+   #logo { text-decoration: none; }
+   #logo:visited { color: inherit; }
+
+   #logo a { pointer-events:none; text-decoration:none; color:inherit; }
+   #logo { cursor:default; }
+
+
+   
+   header#mainheader{
+     display:flex;
+     align-items:center;
+     justify-content:space-between;
+     gap:1rem;
+     padding:1rem 1.25rem;
+     background:#fff;
+     color:#000;
+     flex-wrap:wrap;
+     border-bottom:1px solid var(--line);
+   }
+   
+   #nav-ul{
+     list-style:none;
+     display:flex;
+     gap:.8rem;
+     margin:0;
+     padding:0;
+     align-items:center;
+     flex-wrap:wrap;
+   }
+   #nav-ul li{ margin:0; }
+   
+   .navbutton,
+   #nav-ul a{
+     display:inline-block;
+     text-decoration:none;
+     color:var(--link);
+     font-size:var(--nav-size);
+     padding:.45rem .85rem;
+     border-radius:.25rem;
+     transition:color .15s ease;
+   }
+   .navbutton.active{ font-weight:600; }
+   .navbutton:hover,
+   #nav-ul a:hover{
+     color:var(--link-hover);
+     background:transparent;
+     outline:none;
+   }
+   
+   /* Dropdown */
+   .has-dd{ position:relative; }
+   .dd-caret{
+     display:inline-block;
+     margin-left:.25rem;
+     font-size:.8em;
+     transition:transform .15s ease;
+   }
+   .dd-trigger{
+     background:none;
+     border:none;
+     font:inherit;
+     color:var(--link);
+     font-size:var(--nav-size);
+     padding:.45rem .85rem;
+     border-radius:.25rem;
+     cursor:pointer;
+   }
+   .dd-trigger:hover,
+   .dd-trigger:focus{ color:var(--link-hover); outline:none; }
+   
+   .dropdown{
+     position:absolute;
+     right:0; left:auto;
+     top:calc(100% + 4px);
+     min-width:12rem;
+     max-width:min(90vw, 22rem);
+     padding:.4rem;
+     margin:0;
+     list-style:none;
+     background:#fff;
+     border:1px solid var(--line);
+     border-radius:.35rem;
+     box-shadow:0 8px 24px rgba(0,0,0,.08);
+     opacity:0; visibility:hidden; transform:translateY(-6px);
+     transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+     z-index:50;
+   }
+   .dropdown a{
+     display:block;
+     padding:.5rem .65rem;
+     text-decoration:none;
+     color:var(--link);
+     font-size:var(--nav-size);
+     border-radius:.25rem;
+     white-space:normal;
+   }
+   .dropdown a:hover,
+   .dropdown a:focus{
+     color:var(--link-hover);
+     background:rgba(74,129,100,.06);
+   }
+   .has-dd:hover > .dropdown,
+   .has-dd:focus-within > .dropdown,
+   .has-dd.open > .dropdown{
+     opacity:1; visibility:visible; transform:translateY(0);
+   }
+   .has-dd:hover .dd-caret,
+   .has-dd:focus-within .dd-caret,
+   .has-dd.open .dd-caret{ transform:rotate(180deg); }
+   
+   html,body{ overflow-x:hidden; }
+   @media (max-width:600px){
+     .dropdown{ right:0; max-width:94vw; }
+   }
+   
+   /* ===========================
+   Mobile hamburger + overlay
+   =========================== */
+
+/* Hide hamburger on desktop; show on small screens */
+.menu-toggle{
+  display:none;
+  background:none;
+  border:0;
+  padding:.5rem;
+  line-height:1;
+  cursor:pointer;
+  color:var(--link);
+}
+.menu-toggle svg{ width:28px; height:28px; }
+
+@media (max-width: 840px){
+  #nav-ul{ display:none; }           /* hide desktop nav */
+  .menu-toggle{ display:inline-flex; align-items:center; justify-content:center; margin-left:auto; }
+}
+
+/* Full-screen menu overlay */
+.mobile-menu{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  z-index:1000;
+  padding:1.25rem 1.25rem 2rem;
+  display:block;             /* we’ll toggle [hidden] with JS */
+  transform:translateX(100%);
+  transition:transform .25s ease;
+  pointer-events:none;       /* off when closed */
+}
+.mobile-menu.open{
+  transform:translateX(0);
+  pointer-events:auto;
+}
+
+/* Close button (top-right) */
+.mobile-menu .menu-close{
+  position:absolute;
+  top:.65rem;
+  right:.65rem;
+  background:none;
+  border:0;
+  font-size:2rem;
+  line-height:1;
+  cursor:pointer;
+  color:#000;
+}
+
+/* Menu list */
+.mobile-menu ul{
+  list-style:none;
+  margin:3.25rem 0 0;
+  padding:0;
+  display:grid;
+  gap:.4rem;
+}
+.mobile-menu a{
+  display:block;
+  text-decoration:none;
+  color:var(--link);
+  font-size:calc(var(--p-size) * 1.3);  /* nice big tap targets */
+  padding:.7rem .25rem;
+}
+.mobile-menu a:hover{ color:var(--link-hover); }
+
+/* Prevent background scroll when menu open */
+body.menu-open{ overflow:hidden; }
+
+   
+   /* -----------------------------------------
+      6) HOME INTRO (“About my work”) - centred
+      ----------------------------------------- */
+   
+   #about-teaser{
+     max-width:2300px;
+     margin:1.5rem auto 2rem;
+     text-align:center;
+   }
+   #about-teaser h3{ font-weight:600; margin:0 0 .5rem; }
+   #about-teaser p{ line-height:var(--p-lh); margin:0 auto .8rem; }
+   
+   
+   /* -----------------------
+      7) ABOUT PAGE GRID
+      ----------------------- */
+   
+   .about-section h2{ margin-bottom:1rem; }
+   
+   .about-grid{
+     display:grid;
+     grid-template-areas:
+       "p1 c1"
+       "c2 p2";
+     grid-template-columns:minmax(260px,1fr) 1.2fr;
+     gap:1.5rem 2rem;
+     align-items:start;
+   }
+   .about-photo{ margin:0; }
+   .about-photo img{
+     display:block; width:100%; height:auto; border-radius:0; /* square corners */
+   }
+   .p1{ grid-area:p1; }
+   .c1{ grid-area:c1; }
+   .c2{ grid-area:c2; }
+   .p2{ grid-area:p2; }
+   @media (max-width:800px){
+     .about-grid{
+       grid-template-areas:"p1" "c1" "p2" "c2";
+       grid-template-columns:1fr;
+     }
+   }
+   
+   
+   /* ---------------------------
+      8) PORTFOLIO GALLERY
+      --------------------------- */
+   
+   /* Both heading and grid sit inside the article container, so they align.
+      The grid itself controls columns + spacing. */
+   .gallery{
+     display:grid;
+     grid-template-columns:repeat(4,1fr);
+     gap:2rem;                    /* a bit more space between images */
+     margin:.5rem 0;
+   }
+   
+   @media (max-width:1400px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
+   @media (max-width:900px){  .gallery{ grid-template-columns:repeat(2,1fr); } }
+   @media (max-width:520px){  .gallery{ grid-template-columns:1fr; } }
+   
+   .gallery figure{
+     aspect-ratio:4 / 5;
+     margin:0;
+     overflow:hidden;
+     background:#f2f2f2;
+     border-radius:0;            /* square corners */
+   }
+   .gallery figure.wide{ aspect-ratio:4 / 5; }
+   .gallery figure img{
+     width:100%; height:100%; display:block; object-fit:cover;
+     border-radius:0;            /* square corners */
+   }
+   .gallery figcaption{
+     margin-top:.5rem;
+     font-size: var(--p-size);   /* larger captions */
+     line-height:1.3;
+     text-align:center;
+     color:#444;
+   }
+   .gallery figure, .gallery figure img{ cursor:pointer; }
+   
+   
+   /* ---------------------------
+      9) FORMS (Commission/Contact)
+      --------------------------- */
+   
+   form{
+     text-align:left;
+     max-width:1400px;
+     margin:1rem auto;
+     background:var(--soft);
+     padding:1rem;
+     border-radius:6px;
+   }
+   fieldset{ border:none; padding:0; margin:0; }
+   label{
+     display:block;
+     margin-bottom:.35rem;
+     font-weight:600;
+     font-size:var(--p-size);
+   }
+   .name-row{ display:flex; gap:.6rem; margin-bottom:.8rem; }
+   .name-row input{ flex:1; }
+   
+   input[type="text"],
+   input[type="email"],
+   input[type="tel"],
+   textarea,
+   select{
+     width:100%;
+     font-size:var(--p-size);
+     padding:.6rem;
+     margin-bottom:.8rem;
+     border:1px solid #ddd;
+     border-radius:.25rem;
+     background:#fff;
+   }
+   input[type="checkbox"]{ transform:scale(1.05); margin-right:.35rem; vertical-align:middle; }
+   
+   input[type="submit"], button{
+     display:inline-block;
+     font-size:var(--p-size);
+     padding:.6rem 1rem;
+     border-radius:.35rem;
+     cursor:pointer;
+     background:var(--accent);
+     color:#fff;
+     border:none;
+   }
+   
+   .form-success{
+     background:#e9f8ef; border:1px solid #cfe8d8; padding:1rem; border-radius:6px;
+     color:#083d1d; margin-top:.8rem;
+   }
+   .form-error{
+     background:#fff3f3; border:1px solid #f2c2c2; padding:.9rem; border-radius:6px;
+     color:#7a1d1d; margin:.8rem 0;
+   }
+   address{ font-style:normal; margin-top:1rem; color:#333; font-size:var(--p-size); }
+   @media (max-width:700px){ .name-row{ flex-direction:column; } }
+   
+   
+   /* ---------------------------
+      10) CTA BUTTONS
+      --------------------------- */
+   /* 10) CTA BUTTONS — now white + square corners */
+.cta-buttons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin:2rem auto;
+  text-align:center;
+}
+
+.cta-buttons .btn{
+  display:inline-block;
+  padding:.75rem 1.25rem;
+  font-size:var(--p-size);
+  line-height:1.2;
+  text-decoration:none;
+  font-weight:500;
+  background:#fff;                 /* ← white background */
+  color:#000;
+  border:1.5px solid #000;
+  border-radius:0;                 /* ← no rounded edges */
+  transition:color .2s ease, transform .15s ease, background-color .2s ease;
+}
+
+.cta-buttons .btn:hover{
+  color:var(--accent);
+  transform:translateY(-2px);
+  background:#fff;                 /* keep white on hover */
+}
+
+.cta-buttons .btn:focus-visible{
+  outline:2px dashed var(--accent);
+  outline-offset:3px;
+}
+
+@media (max-width:600px){
+  .cta-buttons .btn{ width:100%; max-width:20rem; }
+}
+
+   
+   /* ---------------------------
+      11) FOOTER
+      --------------------------- */
+   
+   .site-footer{
+     background:#b6c8c1;
+     border-top:1px solid #000;
+     margin-top:2rem;
+     color:#555;
+   }
+   .footer-top.footer-grid{
+     max-width:2600px;
+     margin-inline:auto;
+     padding:2.5rem 2rem;
+     display:grid;
+     grid-template-columns:1fr 1fr 1fr 1.8fr;
+     column-gap:4.5rem;
+     row-gap:2rem;
+     align-items:start;
+   }
+   .footer-col{ min-width:0; }
+   .footer-title{
+     margin:0 0 .75rem;
+     font-size:var(--nav-size);
+     font-weight:600;
+     letter-spacing:.01em;
+     color:#444;
+   }
+   .footer-list{
+     list-style:none; margin:0; padding:0; display:grid; gap:.6rem;
+   }
+   .footer-list a{
+     color:#555; text-decoration:none; font-size:var(--nav-size);
+   }
+   .footer-list a:hover{ color:var(--link-hover); }
+   .footer-text{ margin:0 0 .75rem; font-size:var(--nav-size); color:#555; }
+   .footer-email{ color:#555; text-decoration:none; font-weight:400; }
+   .footer-email:hover{ color:var(--link-hover); }
+   
+   .footer-social{ display:flex; gap:.75rem; margin-top:.25rem; }
+   .icon-link{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; }
+   .icon-link svg{ width:64px; height:64px; fill:#555; transition:fill .15s ease; }
+   .icon-link:hover svg{ fill:var(--link-hover); }
+   
+/* Newsletter (flat) */
+.newsletter{ min-width:540px; }
+.newsletter .footer-text{ max-width:none; word-break:normal; hyphens:manual; color:#555; }
+
+.newsletter-form{
+  display:grid; grid-template-columns:1fr; gap:.6rem; background:transparent; border:none;
+}
+
+/* Style both Name + Email identically */
+.newsletter-form input[type="email"],
+.newsletter-form input[type="text"]{
+  width:100%;
+  padding:.7rem 1rem;
+  border:none;
+  border-radius:0;
+  background:#f8f8f8;
+  font-size:calc(var(--p-size) * 0.85);
+  color:#444;
+  outline:none;
+}
+.newsletter-form input[type="email"]:focus,
+.newsletter-form input[type="text"]:focus{
+  background:#f0f0f0;
+}
+
+.newsletter-form input::placeholder{
+  font-size:calc(var(--p-size) * 0.85);
+  color:#777;
+}
+
+.newsletter-form button{
+  width:100%;
+  padding:.75rem 1rem;
+  border:none;
+  border-radius:0;
+  cursor:pointer;
+  background:#000;
+  color:#fff;
+  font-size:calc(var(--p-size) * 0.85);
+  transition:background .2s ease;
+}
+.newsletter-form button:hover{ background:var(--accent); }
+
+.newsletter-note{ display:block; margin-top:.5rem; font-size:calc(var(--p-size) * 0.7); color:#666; }
+
+.footer-bottom{ text-align:center; padding:.75rem 1rem 1rem; color:#555; }
+.footer-bottom p{ margin:0; font-size:calc(var(--p-size) * 0.85); color:#555; }
+
+@media (max-width:900px){
+  .footer-top.footer-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .newsletter{ min-width:0; }
+}
+@media (max-width:560px){
+  .footer-top.footer-grid{ grid-template-columns:1fr; }
+}
+
+   
+   /* ---------------------------
+      12) A11Y HELPERS + HONEYPOT
+      --------------------------- */
+   
+   .sr-only{
+     position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+     clip:rect(0,0,0,0); white-space:nowrap; border:0;
+   }
+   .hp{ position:absolute; left:-9999px; top:-9999px; }
+   form .hp{ position:absolute; left:-9999px; top:-9999px; }
+   
+   
+   /* -----------------------------
+      13) FULL-BLEED HOME HERO IMG
+      ----------------------------- */
+   
+   .hero-figure.hero-full{
+     margin-left:calc(50% - 50vw);
+     margin-right:calc(50% - 50vw);
+   }
+   .hero-figure.hero-full img{
+     display:block; width:100%; height:auto; border-radius:0;
+   }
+   
+
+/* ================================
+   Mobile homepage carousel (CSS)
+   ================================ */
+
+/* Hide carousel on desktop by default */
+.mobile-carousel{ display:none; }
+
+@media (max-width:760px){
+
+  /* Keep the big banner hidden on mobile */
+  .hero-figure.hero-full{ display:none; }
+
+  /* Full-bleed container + positioning context for dots */
+  #home-carousel{
+    display:block;
+    position: relative;            /* ← lets us pin the dots to the bottom */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+  }
+
+  .mobile-carousel{ display:block; }
+
+  .mobile-carousel .mc-viewport{
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  /* Slides fade smoothly */
+  .mobile-carousel .mc-slide{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.01);
+    transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+    pointer-events: none;
+  }
+  .mobile-carousel .mc-slide.is-active{
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  /* Image fills phone width without distortion */
+  .mobile-carousel .mc-slide img{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Arrows: fixed at the sides, vertically centered */
+  .mobile-carousel .mc-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    font-size: 2.6rem;
+    line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    color: #000;
+    text-shadow: 0 1px 2px rgba(255,255,255,.6);
+    cursor: pointer;
+    z-index: 2;
+  }
+  .mobile-carousel .mc-prev{ left: .5rem; }
+  .mobile-carousel .mc-next{ right: .5rem; }
+
+  /* Dots → thin bars, pinned close to the painting */
+  .mobile-carousel .mc-dots{
+    position: absolute;
+    left: 50%;
+    bottom: 10px;                 /* ← closer to the image */
+    transform: translateX(-50%);
+    display: flex; justify-content: center; align-items: center;
+    gap: 8px;
+    margin: 0;
+    z-index: 2;
+  }
+  .mobile-carousel .mc-dot{
+    width: 16px;
+    height: 2px;
+    padding: 0;
+    background: #bbb;
+    border: 0;
+    border-radius: 1px;
+    cursor: pointer;
+  }
+  .mobile-carousel .mc-dot[aria-current="true"]{
+    background: var(--accent);
+  }
+}
+
+
+   
+   /* -----------------------
+      14) LIGHTBOX OVERLAY
+      ----------------------- */
+   
+   .lightbox{
+     position:fixed; inset:0; background:rgba(0,0,0,.9);
+     display:none; align-items:center; justify-content:center; z-index:1000;
+   }
+   .lightbox.open{ display:flex; }
+   .lightbox img{
+     max-width:95vw; max-height:78vh; display:block; box-shadow:0 10px 40px rgba(0,0,0,.6);
+   }
+   .lb-caption{
+     position:absolute; left:50%; bottom:1rem; transform:translateX(-50%);
+     max-width:90vw; color:#fff; font-size:calc(var(--p-size) * 0.95); text-align:center; line-height:1.35;
+   }
+   .lb-btn{
+     position:absolute; background:transparent; border:0; color:#fff; cursor:pointer;
+     font-size:2rem; line-height:1; padding:.25rem .5rem;
+   }
+   .lb-close{ top:.75rem; right:.75rem; }
+   .lb-prev{ left:.75rem; top:50%; transform:translateY(-50%); }
+   .lb-next{ right:.75rem; top:50%; transform:translateY(-50%); }
+   @media (max-width:600px){
+     .lb-prev,.lb-next{ font-size:1.6rem; }
+     .lb-caption{ bottom:.6rem; }
+   }
+   
+   
+   /* ============================================================
+      PER-PAGE / PER-SECTION WIDTH TUNING (no HTML changes needed)
+      ============================================================ */
+   
+   /* 1) Apply the container to the main content blocks site-wide */
+   main,
+   .about-section,
+   .gallery,
+   #portfolio-heading,
+   #about-teaser,
+   [aria-labelledby="contact-heading"] {    /* the Contact page <section> */
+     max-width: var(--page);
+     margin-inline: auto;
+     padding-inline: var(--pad);
+   }
+   
+   /* 2) HOME INTRO: make the home page text block narrower than global */
+   #about-teaser {
+     --page: 68rem;              /* ← tweak this to taste (e.g. 60–68rem) */
+   }
+   
+   /* Optional: also control line length of paragraphs for extra readability */
+   #about-teaser p {
+     max-width: 90ch;            /* ≈70 characters per line (adjust if you like) */
+     margin-inline: auto;
+   }
+   
+   /* 3) CONTACT PAGE: keep both the intro text AND the form inside a narrower column
+      (targets the wrapping <section aria-labelledby="contact-heading"> from your HTML) */
+   [aria-labelledby="contact-heading"] {
+     --page: 50rem;              /* ← tweak this to set Contact page width */
+     /* You can also set side padding just for this page if you want:
+        --pad: 2rem; */
+   }
+   

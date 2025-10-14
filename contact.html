@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contact Annabel Fox — Portrait Commission Enquiries (London)</title>
+    <meta name="description" content="Contact London portrait artist Annabel Fox to discuss an oil portrait commission from your photographs.">
+    <link rel="canonical" href="https://annabelfox.github.io/contact.html">
+  
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#ffffff">
+  
+    <!-- Open Graph / Twitter -->
+    <meta property="og:site_name" content="Annabel Fox — Portrait Artist">
+    <meta property="og:title" content="Contact Annabel Fox — Portrait Commission Enquiries">
+    <meta property="og:description" content="Send a message about pricing, timelines and your photo reference. UK delivery or collection.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://annabelfox.github.io/contact.html">
+    <meta property="og:image" content="https://annabelfox.github.io/images/3_paintings_banner.jpg">
+    <meta property="og:image:alt" content="Oil portrait examples">
+    <meta name="twitter:card" content="summary_large_image">
+  
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  
+    <!-- JSON-LD: Breadcrumb + ContactPage -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@graph":[
+        {
+          "@type":"BreadcrumbList",
+          "itemListElement":[
+            {"@type":"ListItem","position":1,"name":"Home","item":"https://annabelfox.github.io/"},
+            {"@type":"ListItem","position":2,"name":"Contact","item":"https://annabelfox.github.io/contact.html"}
+          ]
+        },
+        {
+          "@type":"ContactPage",
+          "name":"Contact — Commission Enquiries",
+          "url":"https://annabelfox.github.io/contact.html"
+        }
+      ]
+    }
+    </script>
+  </head>  
+<body>
+  <header id="mainheader" role="banner">
+    <div id="logo" aria-hidden="true">Annabel Fox</div>
+  
+    <nav aria-label="Primary navigation">
+      <ul id="nav-ul">
+        <li><a href="index.html" class="navbutton">Home</a></li>
+        <li><a href="portfolio.html" class="navbutton">Portfolio</a></li>
+        <li><a href="about.html" class="navbutton">About</a></li>
+  
+        <!-- Dropdown parent -->
+        <li class="has-dd">
+          <!-- The label (not a link) -->
+          <button class="navbutton dd-trigger"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="comm-dd">
+            Commission and Contact
+            <span class="dd-caret" aria-hidden="true">▾</span>
+          </button>
+        
+          <!-- Dropdown menu -->
+          <ul id="comm-dd" class="dropdown" role="menu" aria-label="Commission and Contact submenu">
+            <li role="none"><a role="menuitem" href="commission.html">Commissioning a Portrait</a></li>
+            <li role="none"><a role="menuitem" href="faqs.html">FAQs</a></li>
+            <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          </ul>
+        </li>        
+      </ul>
+    </nav>
+     <!-- NEW: hamburger (shown only on mobile) -->
+  <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28">
+      <path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"></path>
+    </svg>
+  </button>
+  </header>  
+  <!-- NEW: full-screen mobile menu overlay -->
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu" hidden aria-hidden="true">
+  <button class="menu-close" aria-label="Close menu">×</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="commission.html">Commissioning a Portrait</a></li>
+    <li><a href="faqs.html">FAQs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+  <main role="main">
+    <section aria-labelledby="contact-heading">
+      <br>
+      <h1 id="contact-heading">Contact</h1>
+
+      <p>Learn more about the process of commissioning a portrait and prices.</p>
+      <p>For any further questions or to discuss a commission in more detail, please do get in touch by using the form below.</p>
+      </p>
+
+      <!-- ===== Formspree form (handled in-page by app.js) ===== -->
+      <form id="commission-form" action="https://formspree.io/f/xldwadjn" method="POST" aria-label="Commission enquiry form" novalidate>
+        <!-- Honeypot to catch bots (hidden for humans) -->
+        <label class="hp" aria-hidden="true">
+          Leave this field empty
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+        </label>
+
+        <!-- Helpful hidden values -->
+        <input type="hidden" name="_subject" value="New commission enquiry from website">
+        <input type="hidden" name="_language" value="en">
+
+        <!-- Name (two inputs on one row on wide screens) -->
+        <label for="first_name">Name *</label>
+        <div class="name-row">
+          <input type="text" id="first_name" name="first_name" placeholder="First" autocomplete="given-name" required>
+          <input type="text" id="last_name" name="last_name" placeholder="Last" autocomplete="family-name" required>
+        </div>
+
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-top footer-grid">
+      <!-- Column 1 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Commissions</h4>
+        <ul class="footer-list">
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><a href="commission.html">Prices</a></li>
+          <li><a href="commission.html">Process</a></li>
+          <li><a href="commission.html">Delivery</a></li>
+        </ul>
+      </section>
+  
+      <!-- Column 2 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Annabel Fox</h4>
+        <ul class="footer-list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+        </ul>
+      </section>
+  
+      <!-- Column 3 -->
+      <section class="footer-col">
+        <h4 class="footer-title">Contact</h4>
+        <p class="footer-text"><a class="footer-email" href="mailto:annabel.e.m.fox@icloud.com">annabel.e.m.fox@icloud.com</a></p>
+        <div class="footer-social" aria-label="Social links">
+          <a class="icon-link" href="https://www.instagram.com/annabelfoxart" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+          </a>
+          <a class="icon-link" href="https://www.tiktok.com/@annabel.foxy" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 3h3.1a5.6 5.6 0 0 0 4.3 4.2v3.2a8.9 8.9 0 0 1-4.3-1.5v6.7a6.3 6.3 0 1 1-6.3-6.3c.4 0 .8 0 1.2.1V12a3.1 3.1 0 1 0 2.1 2.9V3z"/></svg>
+          </a>
+        </div>
+      </section>
+  
+      <!-- Column 4 -->
+      <section class="footer-col newsletter">
+        <h4 class="footer-title">Join my newsletter</h4>
+        <p class="footer-text">Join my newsletter to enjoy 10% off your first commission.</p>
+  
+        <!-- Connect this action to your email service later (Formspree, Netlify Forms, Mailchimp, etc.) -->
+        <form class="newsletter-form" action="https://formspree.io/f/xwprwvyj" method="POST">
+          <input type="hidden" name="_subject" value="New newsletter signup!">
+          <label class="sr-only" for="nl-name">Name</label>
+          <input id="nl-name" name="name" type="text" placeholder="Enter your name" autocomplete="name" required>
+          <label class="sr-only" for="nl-email">Email address</label>
+          <input id="nl-email" name="email" type="email" placeholder="Enter your email address" required>
+        
+          <!-- Honeypot to reduce spam -->
+          <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off">
+        
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>&copy; <span id="year">2025</span> Annabel Fox. All rights reserved.</p>
+    </div>
+  </footer>  
+</body>
+</html>
