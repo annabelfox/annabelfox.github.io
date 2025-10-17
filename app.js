@@ -1,4 +1,4 @@
-// app.js — shared (v4: adds swipe to lightbox + keeps carousel swipe)
+// app.js — shared (v5: adds robust swipe to lightbox + keeps carousel swipe)
 
 // 1) Keep footer year fresh on every page
 document.querySelectorAll('[id^="year"]').forEach(el => {
@@ -27,6 +27,10 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
   const btnPrev   = lb.querySelector('.lb-prev');
   const btnNext   = lb.querySelector('.lb-next');
   const btnClose  = lb.querySelector('.lb-close');
+
+  // Help pointer-event swipe behave: allow vertical scrolling, disable horizontal UA panning
+  lb.style.touchAction = 'pan-y';
+  imgEl.style.touchAction = 'pan-y';
 
   const items = figures.map(fig => {
     const img = fig.querySelector('img');
@@ -69,7 +73,7 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
     if (e.key === 'ArrowRight') next();
   });
 
-  // --- SWIPE inside lightbox (Pointer Events + Touch fallback) ---
+  // --- SWIPE inside lightbox (Pointer Events + Touch fallback, attached to overlay) ---
   const SWIPE_THRESHOLD = 40;
   const usePointer = 'PointerEvent' in window;
 
@@ -83,27 +87,25 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
     activeId = e.pointerId;
     startX = e.clientX;
     startY = e.clientY;
-    imgEl.setPointerCapture?.(activeId);
+    lb.setPointerCapture?.(activeId);
   }
   function onPointerMove(e){
     if (!tracking || e.pointerId !== activeId) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
+    // If mostly horizontal, prevent vertical scroll jitter
     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
-      e.preventDefault(); // prevent vertical scroll while swiping horizontally
-    }
-  }
-  function endSwipe(dx){
-    if (Math.abs(dx) > SWIPE_THRESHOLD) {
-      if (dx < 0) next(); else prev();
+      e.preventDefault();
     }
   }
   function onPointerUp(e){
     if (!tracking || e.pointerId !== activeId) return;
     const dx = e.clientX - startX;
     tracking = false;
-    imgEl.releasePointerCapture?.(activeId);
-    endSwipe(dx);
+    lb.releasePointerCapture?.(activeId);
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) next(); else prev();
+    }
   }
   function onPointerCancel(){
     tracking = false;
@@ -112,7 +114,7 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
   function attachTouchFallback(el){
     let sx=0, sy=0;
     el.addEventListener('touchstart', (e) => {
-      if (!e.touches.length) return;
+      if (!lb.classList.contains('open') || !e.touches.length) return;
       sx = e.touches[0].clientX;
       sy = e.touches[0].clientY;
     }, { passive:true });
@@ -123,6 +125,7 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
       const dx = tx - sx;
       const dy = ty - sy;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+        // block vertical scroll behind overlay while swiping horizontally
         e.preventDefault();
       }
     }, { passive:false });
@@ -130,17 +133,19 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
     el.addEventListener('touchend', (e) => {
       const touch = e.changedTouches[0];
       const dx = touch.clientX - sx;
-      endSwipe(dx);
-    });
+      if (Math.abs(dx) > SWIPE_THRESHOLD) {
+        if (dx < 0) next(); else prev();
+      }
+    }, { passive:true });
   }
 
   if (usePointer) {
-    imgEl.addEventListener('pointerdown', onPointerDown, { passive:true });
-    imgEl.addEventListener('pointermove', onPointerMove, { passive:false });
-    imgEl.addEventListener('pointerup', onPointerUp);
-    imgEl.addEventListener('pointercancel', onPointerCancel);
+    lb.addEventListener('pointerdown', onPointerDown, { passive:true });
+    lb.addEventListener('pointermove', onPointerMove, { passive:false });
+    lb.addEventListener('pointerup', onPointerUp);
+    lb.addEventListener('pointercancel', onPointerCancel);
   } else {
-    attachTouchFallback(imgEl);
+    attachTouchFallback(lb);
   }
 })();
 
@@ -379,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const touch = e.changedTouches[0];
       const dx = touch.clientX - sx;
       endSwipe(dx);
-    });
+    }, { passive:true });
     el.addEventListener('touchcancel', start, { passive:true });
   }
 
