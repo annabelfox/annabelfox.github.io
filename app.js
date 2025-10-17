@@ -2,110 +2,110 @@
 
 // 1) Keep footer year fresh on every page
 document.querySelectorAll('[id^="year"]').forEach(el => {
-    el.textContent = new Date().getFullYear();
+  el.textContent = new Date().getFullYear();
+});
+
+// 2) Simple Lightbox with captions (Portfolio images)
+(function () {
+  const figures = Array.from(document.querySelectorAll('.gallery figure'));
+  if (!figures.length) return;
+
+  // Build overlay once
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = `
+    <button class="lb-btn lb-close" aria-label="Close">×</button>
+    <button class="lb-btn lb-prev" aria-label="Previous">‹</button>
+    <img alt="">
+    <button class="lb-btn lb-next" aria-label="Next">›</button>
+    <div class="lb-caption" role="note"></div>
+  `;
+  document.body.appendChild(lb);
+
+  const imgEl     = lb.querySelector('img');
+  const capEl     = lb.querySelector('.lb-caption');
+  const btnPrev   = lb.querySelector('.lb-prev');
+  const btnNext   = lb.querySelector('.lb-next');
+  const btnClose  = lb.querySelector('.lb-close');
+
+  const items = figures.map(fig => {
+    const img = fig.querySelector('img');
+    const caption = (fig.querySelector('figcaption')?.textContent || img.alt || '').trim();
+    return { img, caption };
   });
-  
-  // 2) Simple Lightbox with captions (Portfolio images)
-  (function () {
-    const figures = Array.from(document.querySelectorAll('.gallery figure'));
-    if (!figures.length) return;
-  
-    // Build overlay once
-    const lb = document.createElement('div');
-    lb.className = 'lightbox';
-    lb.innerHTML = `
-      <button class="lb-btn lb-close" aria-label="Close">×</button>
-      <button class="lb-btn lb-prev" aria-label="Previous">‹</button>
-      <img alt="">
-      <button class="lb-btn lb-next" aria-label="Next">›</button>
-      <div class="lb-caption" role="note"></div>
-    `;
-    document.body.appendChild(lb);
-  
-    const imgEl     = lb.querySelector('img');
-    const capEl     = lb.querySelector('.lb-caption');
-    const btnPrev   = lb.querySelector('.lb-prev');
-    const btnNext   = lb.querySelector('.lb-next');
-    const btnClose  = lb.querySelector('.lb-close');
-  
-    const items = figures.map(fig => {
-      const img = fig.querySelector('img');
-      const caption = (fig.querySelector('figcaption')?.textContent || img.alt || '').trim();
-      return { img, caption };
-    });
-  
-    let index = 0;
-  
-    function open(i) {
-      index = i;
-      const src = items[index].img.getAttribute('data-full') || items[index].img.src;
-      imgEl.src = src;
-      imgEl.alt = items[index].img.alt || '';
-      capEl.textContent = items[index].caption;
-      lb.classList.add('open');
-    }
-    function close() {
-      lb.classList.remove('open');
-      imgEl.src = '';
-      capEl.textContent = '';
-    }
-    function prev() { open((index - 1 + items.length) % items.length); }
-    function next() { open((index + 1) % items.length); }
-  
-    // Hooks
-    items.forEach((it, i) => it.img.addEventListener('click', () => open(i)));
-    btnClose.addEventListener('click', close);
-    btnPrev.addEventListener('click', prev);
-    btnNext.addEventListener('click', next);
-  
-    // Close on backdrop click
-    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
-  
-    // Keyboard support
-    document.addEventListener('keydown', (e) => {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') prev();
-      if (e.key === 'ArrowRight') next();
-    });
-  })();
-  
-  document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector(".newsletter-form");
-    const message = document.querySelector(".form-message");
-  
-    if (form) {
-      form.addEventListener("submit", async function(event) {
-        event.preventDefault(); // stops the page from reloading
-  
-        const formData = new FormData(form);
-  
-        try {
-          const response = await fetch(form.action, {
-            method: form.method,
-            body: formData,
-            headers: { Accept: "application/json" }
-          });
-  
-          if (response.ok) {
-            message.textContent = "✅ Thank you for subscribing!";
-            message.style.color = "#2e7d32";
-            message.style.display = "block";
-            form.reset();
-          } else {
-            message.textContent = "⚠️ Oops! Something went wrong. Please try again.";
-            message.style.color = "#c62828";
-            message.style.display = "block";
-          }
-        } catch (error) {
-          message.textContent = "⚠️ Network error. Please try again later.";
+
+  let index = 0;
+
+  function open(i) {
+    index = i;
+    const src = items[index].img.getAttribute('data-full') || items[index].img.src;
+    imgEl.src = src;
+    imgEl.alt = items[index].img.alt || '';
+    capEl.textContent = items[index].caption;
+    lb.classList.add('open');
+  }
+  function close() {
+    lb.classList.remove('open');
+    imgEl.src = '';
+    capEl.textContent = '';
+  }
+  function prev() { open((index - 1 + items.length) % items.length); }
+  function next() { open((index + 1) % items.length); }
+
+  // Hooks
+  items.forEach((it, i) => it.img.addEventListener('click', () => open(i)));
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
+
+  // Close on backdrop click
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+  // Keyboard support
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+})();
+
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.querySelector(".newsletter-form");
+  const message = document.querySelector(".form-message");
+
+  if (form) {
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault(); // stops the page from reloading
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { Accept: "application/json" }
+        });
+
+        if (response.ok) {
+          message.textContent = "✅ Thank you for subscribing!";
+          message.style.color = "#2e7d32";
+          message.style.display = "block";
+          form.reset();
+        } else {
+          message.textContent = "⚠️ Oops! Something went wrong. Please try again.";
           message.style.color = "#c62828";
           message.style.display = "block";
         }
-      });
-    }
-  });
-  
+      } catch (error) {
+        message.textContent = "⚠️ Network error. Please try again later.";
+        message.style.color = "#c62828";
+        message.style.display = "block";
+      }
+    });
+  }
+});
+
 /* --- Accessible dropdown toggle for "Commission and Contact" --- */
 (function () {
   const ddParent = document.querySelector('.has-dd');
@@ -177,7 +177,7 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
   });
 })();
 
-/* --- Mobile homepage carousel (auto-fade, full-bleed with auto height) --- */
+/* --- Mobile homepage carousel (auto-fade, full-bleed with auto height + swipe) --- */
 (function () {
   const root = document.getElementById('home-carousel');
   if (!root) return;
@@ -189,7 +189,7 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
   const next     = root.querySelector('.mc-next');
 
   let i = 0, timer;
-  const INTERVAL = 3500; // 5s
+  const INTERVAL = 3500; // 3.5s
 
   function setViewportHeight() {
     const img = slides[i].querySelector('img');
@@ -217,6 +217,43 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
   prev.addEventListener('click', () => { show(i-1); start(); });
   next.addEventListener('click', () => { show(i+1); start(); });
   dots.forEach((d, idx) => d.addEventListener('click', () => { show(idx); start(); }));
+
+  // --- Swipe on mobile (left/right) ---
+  let startX = 0, startY = 0, isSwiping = false;
+  const SWIPE_THRESHOLD = 45;   // px needed to trigger a slide
+  const VERT_RESTRAINT = 60;    // cancel if vertical move is big
+
+  viewport.addEventListener('touchstart', (e) => {
+    const t = e.changedTouches[0];
+    startX = t.clientX;
+    startY = t.clientY;
+    isSwiping = false;
+    stop(); // pause autoplay while touching
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', (e) => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = Math.abs(t.clientY - startY);
+    // mark as a horizontal swipe once movement is mostly sideways
+    if (!isSwiping && Math.abs(dx) > 10 && dy < Math.abs(dx)) {
+      isSwiping = true;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', (e) => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = Math.abs(t.clientY - startY);
+
+    if (isSwiping && Math.abs(dx) > SWIPE_THRESHOLD && dy < VERT_RESTRAINT) {
+      if (dx < 0) { show(i + 1); }  // swiped left → next
+      else        { show(i - 1); }  // swiped right → prev
+    }
+    start(); // resume autoplay
+  }, { passive: true });
+
+  viewport.addEventListener('touchcancel', start, { passive: true });
 
   // keep height correct when images load or viewport changes
   slides.forEach(s => {
