@@ -1,11 +1,11 @@
-// app.js — shared (v3 with swipe via Pointer Events)
+// app.js — shared (v4: adds swipe to lightbox + keeps carousel swipe)
 
 // 1) Keep footer year fresh on every page
 document.querySelectorAll('[id^="year"]').forEach(el => {
   el.textContent = new Date().getFullYear();
 });
 
-// 2) Simple Lightbox with captions (Portfolio images)
+// 2) Simple Lightbox with captions (Portfolio images) + SWIPE
 (function () {
   const figures = Array.from(document.querySelectorAll('.gallery figure'));
   if (!figures.length) return;
@@ -68,6 +68,80 @@ document.querySelectorAll('[id^="year"]').forEach(el => {
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
   });
+
+  // --- SWIPE inside lightbox (Pointer Events + Touch fallback) ---
+  const SWIPE_THRESHOLD = 40;
+  const usePointer = 'PointerEvent' in window;
+
+  let tracking = false;
+  let startX = 0, startY = 0, activeId = null;
+
+  function onPointerDown(e){
+    // ignore mouse dragging; swipe for touch/pen
+    if (e.pointerType === 'mouse') return;
+    tracking = true;
+    activeId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    imgEl.setPointerCapture?.(activeId);
+  }
+  function onPointerMove(e){
+    if (!tracking || e.pointerId !== activeId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+      e.preventDefault(); // prevent vertical scroll while swiping horizontally
+    }
+  }
+  function endSwipe(dx){
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) next(); else prev();
+    }
+  }
+  function onPointerUp(e){
+    if (!tracking || e.pointerId !== activeId) return;
+    const dx = e.clientX - startX;
+    tracking = false;
+    imgEl.releasePointerCapture?.(activeId);
+    endSwipe(dx);
+  }
+  function onPointerCancel(){
+    tracking = false;
+  }
+
+  function attachTouchFallback(el){
+    let sx=0, sy=0;
+    el.addEventListener('touchstart', (e) => {
+      if (!e.touches.length) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive:true });
+
+    el.addEventListener('touchmove', (e) => {
+      const tx = e.touches[0].clientX;
+      const ty = e.touches[0].clientY;
+      const dx = tx - sx;
+      const dy = ty - sy;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+        e.preventDefault();
+      }
+    }, { passive:false });
+
+    el.addEventListener('touchend', (e) => {
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - sx;
+      endSwipe(dx);
+    });
+  }
+
+  if (usePointer) {
+    imgEl.addEventListener('pointerdown', onPointerDown, { passive:true });
+    imgEl.addEventListener('pointermove', onPointerMove, { passive:false });
+    imgEl.addEventListener('pointerup', onPointerUp);
+    imgEl.addEventListener('pointercancel', onPointerCancel);
+  } else {
+    attachTouchFallback(imgEl);
+  }
 })();
 
 // 3) Newsletter form (Formspree)
@@ -248,7 +322,6 @@ document.addEventListener("DOMContentLoaded", function() {
   let startX = 0, startY = 0, activeId = null;
 
   function onPointerDown(e){
-    // ignore mouse drags; swipe is for touch/pen
     if (e.pointerType === 'mouse') return;
     tracking = true;
     activeId = e.pointerId;
@@ -261,7 +334,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!tracking || e.pointerId !== activeId) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    // if horizontal intent, prevent page scroll
     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
       e.preventDefault();
     }
@@ -299,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const dx = tx - sx;
       const dy = ty - sy;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
-        e.preventDefault(); // stop page from scrolling horizontally
+        e.preventDefault();
       }
     }, { passive:false });
 
@@ -320,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
     attachTouchFallback(viewport);
   }
 
-  // Pause autoplay if the carousel is off-screen (battery-friendly)
+  // Pause autoplay if the carousel is off-screen
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => entry.isIntersecting ? start() : stop());
